@@ -3,18 +3,21 @@ class Cart < ActiveRecord::Base
   has_many :items, through: :line_items
   belongs_to :user
 
-  def add_item(item)
-    # binding.pry
-    if self.line_items.ids.detect(item)
-      line_item.quantity += 1
+  def add_item(item_id)
+    if @line_item = line_items.find_by(item_id: item_id)
+      @line_item.quantity += 1
+      @line_item
     else
-      LineItem.new(cart_id: self.id, item_id: item, quantity: 1)
+      line_items.new(:item_id => item_id, :quantity => 1)
     end
   end
 
   def total
+
+    Cart.all.inject(0) { |result, element| result + price*quantity }
     #prices * quantities
-    #sum
+    #sum (inject)
+    # [1, 2, 3, 4].inject(0) { |result, element| result + element }
   end
 
 end
