@@ -20,8 +20,5 @@ class Cart < ActiveRecord::Base
       total
   end
 
-  def subtotals
-
-  end
 
 end
