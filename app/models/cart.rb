@@ -13,11 +13,15 @@ class Cart < ActiveRecord::Base
   end
 
   def total
+    total = 0
+    line_items.each do |line_item|
+      total += line_item.quantity * line_item.item.price
+    end
+      total
+  end
 
-    Cart.all.inject(0) { |result, element| result + price*quantity }
-    #prices * quantities
-    #sum (inject)
-    # [1, 2, 3, 4].inject(0) { |result, element| result + element }
+  def subtotals
+
   end
 
 end
