@@ -20,5 +20,11 @@ class Cart < ActiveRecord::Base
       total
   end
 
+  def subtract_from_inventory
+    line_items.each do |line_item|
+      line_item.item.inventory -= line_item.quantity
+    end
+  end
+
 
 end
