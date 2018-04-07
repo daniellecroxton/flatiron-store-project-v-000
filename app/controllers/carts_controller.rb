@@ -1,20 +1,18 @@
 class CartsController < ApplicationController
 
   def show
+    @cart = current_user.current_cart
     # raise Cart.first.inspect
-    @cart = Cart.find_by_id(params[:id])
-    # if @cart == nil
-    #   flash.notice = "Your cart is currently empty"
-    # end
+    if @cart == nil
+      flash.notice = "Your cart is currently empty"
+    end
   end
 
   def checkout
-    @cart = Cart.find_by_id(params[:id])
-    @user = User.find_by_id(@cart.user_id)
-    @cart.subtract_from_inventory
-    @cart.status = "submitted"
-    @user.current_cart.clear
-    redirect_to cart_path(@cart)
+    @cart = current_user.current_cart
+    @cart.checkout
+    @cart.clear
+    redirect_to cart_path(params[:id])
   end
 
   def update

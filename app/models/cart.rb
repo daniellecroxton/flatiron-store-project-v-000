@@ -26,5 +26,10 @@ class Cart < ActiveRecord::Base
     end
   end
 
+  def checkout
+    subtract_from_inventory
+    status = "submitted"
+  end
+
 
 end
