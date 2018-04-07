@@ -15,9 +15,4 @@ class CartsController < ApplicationController
     redirect_to cart_path(params[:id])
   end
 
-  def update
-    raise params.inspect
-    add_item(item.id)
-  end
-
 end
