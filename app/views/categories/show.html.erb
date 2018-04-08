@@ -4,7 +4,7 @@
 <% @category.items.each do |item| %>
     <li><%= link_to "#{item.title} - $#{item.price}", item_path(item) %>
         <% if !!current_user %>
-          <%= form_tag(cart_path, method: :patch) do %>
+          <%= form_tag(line_items_path, method: :create) do %>
             <%= hidden_field_tag 'item_id', item.id %>
             <%= submit_tag 'Add to Cart' %>
           <% end %>

@@ -1,8 +1,7 @@
 class LineItemsController < ApplicationController
   def create
-    if !current_user.current_cart
-      current_user.create_current_cart
-    end
+    current_user.create_current_cart unless !!current_user.current_cart
+    # binding.pry
     new_line_item = current_user.current_cart.add_item(params[:item_id])
     if new_line_item.save
       redirect_to cart_path(current_user.current_cart)

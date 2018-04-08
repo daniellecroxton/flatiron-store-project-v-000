@@ -21,14 +21,17 @@ class Cart < ActiveRecord::Base
   end
 
   def subtract_from_inventory
-    line_items.each do |line_item|
+    line_items.map do |line_item|
       line_item.item.inventory -= line_item.quantity
+      line_item.item.save
     end
   end
 
   def checkout
-    subtract_from_inventory
-    status = "submitted"
+    # binding.pry
+    self.subtract_from_inventory
+    self.status = "submitted"
+    self.save
   end
 
 
